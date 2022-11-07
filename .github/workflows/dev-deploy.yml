@@ -10,7 +10,7 @@ on:
 env:
   AWS_REGION: ap-southeast-2
   ENVIRONMENT: dev
-  FLOW_TIMEOUT: 180
+  FLOW_TIMEOUT: 5
   FLOW_MEMORY: 1024
   FLOW_ENV: '{"Variables":{}}'
   FLOW_TAGS: '{"OWNER": "CM"}'    
