@@ -56,7 +56,7 @@
         "y": 160,
         "wires": [
             [
-                "b5fc6ccd.17dd7"
+                "c3d1a63e.30c808"
             ]
         ],
         "caname": "logger",
@@ -150,5 +150,24 @@
         ],
         "caname": "JSON",
         "category": "transformation"
+    },
+    {
+        "id": "c3d1a63e.30c808",
+        "type": "Lambda",
+        "z": "main.flow",
+        "operation": "InvokeAsync",
+        "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:testfunction1",
+        "InvokeArgs": "msg.payload",
+        "Timeout": "10000",
+        "name": "Lambda Invoke",
+        "x": 402.5,
+        "y": 160,
+        "wires": [
+            [
+                "b5fc6ccd.17dd7"
+            ]
+        ],
+        "caname": "lambda",
+        "category": "aws"
     }
 ]
