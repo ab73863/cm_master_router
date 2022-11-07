@@ -33,8 +33,8 @@
         "kreference": "",
         "kObjectStoreName": "",
         "zapiUrl": "",
-        "x": 120,
-        "y": 160,
+        "x": 82.5,
+        "y": 200,
         "wires": [
             [
                 "c3418e1a.7e7bc"
@@ -42,25 +42,6 @@
         ],
         "caname": "event-handler",
         "category": "general"
-    },
-    {
-        "id": "5eb3cd61.894f04",
-        "type": "Logger",
-        "z": "main.flow",
-        "name": "Log_TaskId",
-        "level": "INFO",
-        "message": "{'taskId' : msg.payload. Records[0].body }",
-        "format": "json",
-        "headers": {},
-        "x": 310,
-        "y": 160,
-        "wires": [
-            [
-                "31cedfc0.e66a2"
-            ]
-        ],
-        "caname": "logger",
-        "category": "logging"
     },
     {
         "id": "b5fc6ccd.17dd7",
@@ -71,9 +52,9 @@
         "headers": {
             "Content-Type": "application/json"
         },
-        "payload": "{\"hello\": \"world\"}",
-        "x": 822.5,
-        "y": 160,
+        "payload": "{\"status\": \"completed\"}",
+        "x": 845,
+        "y": 200,
         "wires": [],
         "caname": "eventlistenerend",
         "category": "general"
@@ -114,7 +95,7 @@
         "z": "test.flow",
         "name": "HTTPTestCase",
         "method": "GET",
-        "path": "/hello",
+        "path": "/test",
         "headers": {
             "Accept": "application/json"
         },
@@ -123,6 +104,7 @@
         "secPassword": "",
         "secToken": "",
         "payload": "",
+        "mocks": [],
         "x": 122.5,
         "y": 160,
         "wires": [
@@ -141,11 +123,11 @@
         "property": "msg.payload",
         "action": "obj",
         "pretty": true,
-        "x": 202.5,
-        "y": 160,
+        "x": 162.5,
+        "y": 200,
         "wires": [
             [
-                "5eb3cd61.894f04"
+                "83a4fced.4e918"
             ]
         ],
         "caname": "JSON",
@@ -159,12 +141,12 @@
         "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:testfunction1",
         "InvokeArgs": "msg.payload. Records[0].body",
         "Timeout": "10000",
-        "name": "Patient export",
-        "x": 622.5,
-        "y": 80,
+        "name": "Invoke Patient export",
+        "x": 625,
+        "y": 60,
         "wires": [
             [
-                "acac6b23.ccf9e8"
+                "5b9dead9.c2d2f4"
             ]
         ],
         "caname": "lambda",
@@ -174,7 +156,7 @@
         "id": "31cedfc0.e66a2",
         "type": "Switch",
         "z": "main.flow",
-        "name": "Switch",
+        "name": "CheckTaskId",
         "property": "$number( msg.payload. Records[0].body )",
         "propertyType": "",
         "rules": [
@@ -194,17 +176,17 @@
         ],
         "repair": false,
         "outputs": 3,
-        "x": 422.5,
-        "y": 160,
+        "x": 362.5,
+        "y": 200,
         "wires": [
             [
-                "98bfbd5b.689cc"
+                "329428ae.9a2c38"
             ],
             [
-                "a5af1bf5.2f8c38"
+                "5c2f1b3b.6eeaa4"
             ],
             [
-                "46fa8bf6.bfd5c4"
+                "42ec9392.34985c"
             ]
         ],
         "caname": "switch",
@@ -218,110 +200,334 @@
         "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:testfunction2",
         "InvokeArgs": "msg.payload. Records[0].body",
         "Timeout": "10000",
-        "name": "Appointments",
-        "x": 622.5,
-        "y": 160,
+        "name": "Invoke Appointments export",
+        "x": 625,
+        "y": 200,
         "wires": [
             [
-                "60daa8d4.52dea8"
+                "a72e96c1.f57538"
             ]
         ],
         "caname": "lambda",
         "category": "aws"
     },
     {
-        "id": "46fa8bf6.bfd5c4",
-        "type": "Logger",
+        "id": "83a4fced.4e918",
+        "type": "Datadog",
         "z": "main.flow",
-        "name": "Logger",
-        "level": "INFO",
-        "message": "Invalid taskid",
-        "format": "string",
-        "headers": {},
-        "x": 602.5,
-        "y": 280,
+        "name": "Log_In",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"service-in\", \"message\" : \"SQS event recieved\", \"data\": msg.payload, \"txnid\" : msg._msgid }",
+        "propertyType": "",
+        "x": 262.5,
+        "y": 200,
         "wires": [
             [
-                "b5fc6ccd.17dd7"
+                "31cedfc0.e66a2"
             ]
         ],
-        "caname": "logger",
+        "caname": "datadog",
         "category": "logging"
     },
     {
-        "id": "98bfbd5b.689cc",
-        "type": "Logger",
+        "id": "329428ae.9a2c38",
+        "type": "Datadog",
         "z": "main.flow",
-        "name": "Log_OutBound",
-        "level": "INFO",
-        "message": "Patient export route",
-        "format": "string",
-        "headers": {},
-        "x": 522.5,
-        "y": 80,
+        "name": "Log_PatientExportRoute",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"log\", \"message\" : \"Patient export route\", \"data\": \"\", \"txnid\" : msg._msgid }",
+        "propertyType": "",
+        "x": 502.5,
+        "y": 60,
         "wires": [
             [
                 "c3d1a63e.30c808"
             ]
         ],
-        "caname": "logger",
+        "caname": "datadog",
         "category": "logging"
     },
     {
-        "id": "a5af1bf5.2f8c38",
-        "type": "Logger",
+        "id": "5c2f1b3b.6eeaa4",
+        "type": "Datadog",
         "z": "main.flow",
-        "name": "Log_OutBound",
-        "level": "INFO",
-        "message": "Appointment export route",
-        "format": "string",
-        "headers": {},
-        "x": 522.5,
-        "y": 160,
+        "name": "Log_AppointmentExportRoute",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"log\", \"message\" : \"Appointment export route\", \"data\": \"\", \"txnid\" : msg._msgid }",
+        "propertyType": "",
+        "x": 502.5,
+        "y": 200,
         "wires": [
             [
                 "197f6c64.ec7c94"
             ]
         ],
-        "caname": "logger",
+        "caname": "datadog",
         "category": "logging"
     },
     {
-        "id": "acac6b23.ccf9e8",
-        "type": "Logger",
+        "id": "5b9dead9.c2d2f4",
+        "type": "Datadog",
         "z": "main.flow",
-        "name": "Logger",
-        "level": "INFO",
-        "message": "Patient export completed",
-        "format": "string",
-        "headers": {},
+        "name": "Log_PatientExportRouteCompleted",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"service-out\", \"message\" : \"Patient export route completed\", \"data\": \"\", \"txnid\" : msg._msgid }",
+        "propertyType": "",
         "x": 722.5,
-        "y": 80,
+        "y": 60,
         "wires": [
             [
                 "b5fc6ccd.17dd7"
             ]
         ],
-        "caname": "logger",
+        "caname": "datadog",
         "category": "logging"
     },
     {
-        "id": "60daa8d4.52dea8",
-        "type": "Logger",
+        "id": "a72e96c1.f57538",
+        "type": "Datadog",
         "z": "main.flow",
-        "name": "Logger",
-        "level": "INFO",
-        "message": "Appointment export completed",
-        "format": "string",
-        "headers": {},
+        "name": "Log_AppointmentExportRouteCompleted",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"service-out\", \"message\" : \"Appointment export route completed\", \"data\": \"\", \"txnid\" : msg._msgid }",
+        "propertyType": "",
         "x": 722.5,
-        "y": 160,
+        "y": 200,
         "wires": [
             [
                 "b5fc6ccd.17dd7"
             ]
         ],
-        "caname": "logger",
+        "caname": "datadog",
         "category": "logging"
+    },
+    {
+        "id": "42ec9392.34985c",
+        "type": "Datadog",
+        "z": "main.flow",
+        "name": "Log_AppointmentExportRouteCompleted",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"service-out\", \"message\" : \"Invalid task id\", \"data\": $number( msg.payload. Records[0].body ), \"txnid\" : msg._msgid }",
+        "propertyType": "",
+        "x": 622.5,
+        "y": 340,
+        "wires": [
+            [
+                "b5fc6ccd.17dd7"
+            ]
+        ],
+        "caname": "datadog",
+        "category": "logging"
+    },
+    {
+        "id": "76382c4c.ac4004",
+        "type": "catch",
+        "z": "main.flow",
+        "name": "catch invoke patient failure",
+        "scope": [
+            "c3d1a63e.30c808"
+        ],
+        "uncaught": false,
+        "x": 262.5,
+        "y": 460,
+        "wires": [
+            [
+                "d16a10a4.71939"
+            ]
+        ],
+        "caname": "catch",
+        "category": "exception"
+    },
+    {
+        "id": "d16a10a4.71939",
+        "type": "Datadog",
+        "z": "main.flow",
+        "name": "Log_Error",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"error\", \"message\" : \"Patient invoke failed\", \"data\": msg.error, \"txnid\" : msg._msgid }",
+        "propertyType": "",
+        "x": 382.5,
+        "y": 460,
+        "wires": [
+            [
+                "cbcba43c.f29408"
+            ]
+        ],
+        "caname": "datadog",
+        "category": "logging"
+    },
+    {
+        "id": "cbcba43c.f29408",
+        "type": "EventListener-End",
+        "z": "main.flow",
+        "name": "Failed",
+        "statusCode": "400",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "payload": "{\"hello\": \"world\"}",
+        "x": 502.5,
+        "y": 460,
+        "wires": [],
+        "caname": "eventlistenerend",
+        "category": "general"
+    },
+    {
+        "id": "ee8280d1.2619",
+        "type": "catch",
+        "z": "main.flow",
+        "name": "catch invoke appointment failure",
+        "scope": [
+            "197f6c64.ec7c94"
+        ],
+        "uncaught": false,
+        "x": 262.5,
+        "y": 560,
+        "wires": [
+            [
+                "63eba788.a20868"
+            ]
+        ],
+        "caname": "catch",
+        "category": "exception"
+    },
+    {
+        "id": "63eba788.a20868",
+        "type": "Datadog",
+        "z": "main.flow",
+        "name": "Log_Error",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"error\", \"message\" : \"Appointment invoke failed\", \"data\": msg.error, \"txnid\" : msg._msgid }",
+        "propertyType": "",
+        "x": 382.5,
+        "y": 560,
+        "wires": [
+            [
+                "4033df9b.7548f"
+            ]
+        ],
+        "caname": "datadog",
+        "category": "logging"
+    },
+    {
+        "id": "4033df9b.7548f",
+        "type": "EventListener-End",
+        "z": "main.flow",
+        "name": "Failed",
+        "statusCode": "400",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "payload": "{\"hello\": \"world\"}",
+        "x": 502.5,
+        "y": 560,
+        "wires": [],
+        "caname": "eventlistenerend",
+        "category": "general"
+    },
+    {
+        "id": "35b9e777.f57108",
+        "type": "catch",
+        "z": "main.flow",
+        "name": "catchAll",
+        "scope": null,
+        "uncaught": false,
+        "x": 262.5,
+        "y": 660,
+        "wires": [
+            [
+                "b38e4bad.6a5028"
+            ]
+        ],
+        "caname": "catch",
+        "category": "exception"
+    },
+    {
+        "id": "b38e4bad.6a5028",
+        "type": "Datadog",
+        "z": "main.flow",
+        "name": "Log_Error",
+        "loglevel": "Info",
+        "host": "env.datadoghost",
+        "hostType": "",
+        "service": "env.servicename",
+        "serviceType": "",
+        "key": "env.datadogkey",
+        "keyType": "",
+        "property": "{\"type\":\"error\", \"message\" : \"Unknown failure\", \"data\": msg.error, \"txnid\" : msg._msgid }",
+        "propertyType": "",
+        "x": 382.5,
+        "y": 660,
+        "wires": [
+            [
+                "4fefe794.602108"
+            ]
+        ],
+        "caname": "datadog",
+        "category": "logging"
+    },
+    {
+        "id": "4fefe794.602108",
+        "type": "EventListener-End",
+        "z": "main.flow",
+        "name": "Failed",
+        "statusCode": "400",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "payload": "{\"hello\": \"world\"}",
+        "x": 502.5,
+        "y": 660,
+        "wires": [],
+        "caname": "eventlistenerend",
+        "category": "general"
     }
 ]
