@@ -1,0 +1,19 @@
+{
+  "awsLambda": {
+    "functionName": "cm_master_router-flow",
+    "description": "kumologica flow",
+    "memory": "512",
+    "timeout": "20",
+    "reservedConcurrency": "",
+    "xRay": false,
+    "role": "",
+    "profile": "development",
+    "environment": [],
+    "tags": [],
+    "events": [
+      {
+        "source": "sqs"
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "cm-master-router",
+    "version": "1.0.0",
+    "description": "Kumologica flow",
+    "main": "lambda.js",
+    "files": [
+      "lambda.js",
+      "cm_master_router-flow.json",
+      "node_modules/**/*"
+    ],
+    "scripts": {
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@kumologica/runtime": "3.0.26"
+    },
+    "devDependencies": {
+      "aws-sdk": "^2.513.0"
+    }
+  }
+  
