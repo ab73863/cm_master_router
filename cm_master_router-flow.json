@@ -215,7 +215,7 @@
         "type": "Lambda",
         "z": "main.flow",
         "operation": "InvokeAsync",
-        "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:testfunction1",
+        "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:testfunction2",
         "InvokeArgs": "msg.payload. Records[0].body",
         "Timeout": "10000",
         "name": "Appointments",
