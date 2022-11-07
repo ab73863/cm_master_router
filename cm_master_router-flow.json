@@ -47,7 +47,7 @@
         "id": "5eb3cd61.894f04",
         "type": "Logger",
         "z": "main.flow",
-        "name": "Log",
+        "name": "Log_TaskId",
         "level": "INFO",
         "message": "{'taskId' : msg.payload. Records[0].body }",
         "format": "json",
@@ -56,7 +56,7 @@
         "y": 160,
         "wires": [
             [
-                "c3d1a63e.30c808"
+                "31cedfc0.e66a2"
             ]
         ],
         "caname": "logger",
@@ -72,7 +72,7 @@
             "Content-Type": "application/json"
         },
         "payload": "{\"hello\": \"world\"}",
-        "x": 520,
+        "x": 822.5,
         "y": 160,
         "wires": [],
         "caname": "eventlistenerend",
@@ -157,17 +157,171 @@
         "z": "main.flow",
         "operation": "InvokeAsync",
         "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:testfunction1",
-        "InvokeArgs": "msg.payload",
+        "InvokeArgs": "msg.payload. Records[0].body",
         "Timeout": "10000",
-        "name": "Lambda Invoke",
-        "x": 402.5,
+        "name": "Patient export",
+        "x": 622.5,
+        "y": 80,
+        "wires": [
+            [
+                "acac6b23.ccf9e8"
+            ]
+        ],
+        "caname": "lambda",
+        "category": "aws"
+    },
+    {
+        "id": "31cedfc0.e66a2",
+        "type": "Switch",
+        "z": "main.flow",
+        "name": "Switch",
+        "property": "$number( msg.payload. Records[0].body )",
+        "propertyType": "",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "repair": false,
+        "outputs": 3,
+        "x": 422.5,
+        "y": 160,
+        "wires": [
+            [
+                "98bfbd5b.689cc"
+            ],
+            [
+                "a5af1bf5.2f8c38"
+            ],
+            [
+                "46fa8bf6.bfd5c4"
+            ]
+        ],
+        "caname": "switch",
+        "category": "routing"
+    },
+    {
+        "id": "197f6c64.ec7c94",
+        "type": "Lambda",
+        "z": "main.flow",
+        "operation": "InvokeAsync",
+        "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:testfunction1",
+        "InvokeArgs": "msg.payload. Records[0].body",
+        "Timeout": "10000",
+        "name": "Appointments",
+        "x": 622.5,
+        "y": 160,
+        "wires": [
+            [
+                "60daa8d4.52dea8"
+            ]
+        ],
+        "caname": "lambda",
+        "category": "aws"
+    },
+    {
+        "id": "46fa8bf6.bfd5c4",
+        "type": "Logger",
+        "z": "main.flow",
+        "name": "Logger",
+        "level": "INFO",
+        "message": "Invalid taskid",
+        "format": "string",
+        "headers": {},
+        "x": 602.5,
+        "y": 280,
+        "wires": [
+            [
+                "b5fc6ccd.17dd7"
+            ]
+        ],
+        "caname": "logger",
+        "category": "logging"
+    },
+    {
+        "id": "98bfbd5b.689cc",
+        "type": "Logger",
+        "z": "main.flow",
+        "name": "Log_OutBound",
+        "level": "INFO",
+        "message": "Patient export route",
+        "format": "string",
+        "headers": {},
+        "x": 522.5,
+        "y": 80,
+        "wires": [
+            [
+                "c3d1a63e.30c808"
+            ]
+        ],
+        "caname": "logger",
+        "category": "logging"
+    },
+    {
+        "id": "a5af1bf5.2f8c38",
+        "type": "Logger",
+        "z": "main.flow",
+        "name": "Log_OutBound",
+        "level": "INFO",
+        "message": "Appointment export route",
+        "format": "string",
+        "headers": {},
+        "x": 522.5,
+        "y": 160,
+        "wires": [
+            [
+                "197f6c64.ec7c94"
+            ]
+        ],
+        "caname": "logger",
+        "category": "logging"
+    },
+    {
+        "id": "acac6b23.ccf9e8",
+        "type": "Logger",
+        "z": "main.flow",
+        "name": "Logger",
+        "level": "INFO",
+        "message": "Patient export completed",
+        "format": "string",
+        "headers": {},
+        "x": 722.5,
+        "y": 80,
+        "wires": [
+            [
+                "b5fc6ccd.17dd7"
+            ]
+        ],
+        "caname": "logger",
+        "category": "logging"
+    },
+    {
+        "id": "60daa8d4.52dea8",
+        "type": "Logger",
+        "z": "main.flow",
+        "name": "Logger",
+        "level": "INFO",
+        "message": "Appointment export completed",
+        "format": "string",
+        "headers": {},
+        "x": 722.5,
         "y": 160,
         "wires": [
             [
                 "b5fc6ccd.17dd7"
             ]
         ],
-        "caname": "lambda",
-        "category": "aws"
+        "caname": "logger",
+        "category": "logging"
     }
 ]
