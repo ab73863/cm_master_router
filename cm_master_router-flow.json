@@ -223,7 +223,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "{\"type\":\"service-in\", \"message\" : \"SQS event recieved\", \"data\": msg.payload, \"txnid\" : msg._msgid }",
+        "property": "$string( {\"type\":\"service-in\", \"message\" : \"SQS event recieved\", \"data\": msg.payload, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 262.5,
         "y": 200,
