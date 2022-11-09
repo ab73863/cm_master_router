@@ -157,7 +157,7 @@
         "type": "Switch",
         "z": "main.flow",
         "name": "CheckTaskId",
-        "property": "$number( msg.payload. Records[0].body )",
+        "property": "$number( msg.payload.Records[0].body.taskid )",
         "propertyType": "",
         "rules": [
             {
