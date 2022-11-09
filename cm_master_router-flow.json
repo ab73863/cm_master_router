@@ -127,7 +127,7 @@
         "y": 200,
         "wires": [
             [
-                "83a4fced.4e918"
+                "e69d24a7.4c45f8"
             ]
         ],
         "caname": "JSON",
@@ -139,7 +139,7 @@
         "z": "main.flow",
         "operation": "InvokeAsync",
         "LambdaArn": "arn:aws:lambda:ap-southeast-2:174842903734:function:dev-cm-medical-history-flow",
-        "InvokeArgs": "msg.payload. Records[0].body",
+        "InvokeArgs": "msg.payload.Records[0].body",
         "Timeout": "10000",
         "name": "Invoke Medicalhistory export",
         "x": 625,
@@ -176,7 +176,7 @@
         ],
         "repair": false,
         "outputs": 3,
-        "x": 362.5,
+        "x": 382.5,
         "y": 200,
         "wires": [
             [
@@ -223,9 +223,9 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"service-in\", \"message\" : \"SQS event recieved\", \"data\": msg.payload, \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"service-in\", \"message\" : \"SQS event recieved\", \"data\": msg.payload, \"btxnid\": msg.bid,\"txnid\" : msg._msgid } )",
         "propertyType": "",
-        "x": 262.5,
+        "x": 302.5,
         "y": 200,
         "wires": [
             [
@@ -247,7 +247,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"log\", \"message\" : \"Medical history export route\", \"data\": \"\", \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"log\", \"message\" : \"Medical history export route\", \"data\": \"\", \"btxnid\": msg.bid, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 502.5,
         "y": 60,
@@ -271,7 +271,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"log\", \"message\" : \"Appointment export route\", \"data\": \"\", \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"log\", \"message\" : \"Appointment export route\", \"data\": \"\",\"btxnid\": msg.bid, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 502.5,
         "y": 200,
@@ -295,7 +295,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"service-out\", \"message\" : \"Medical history export route completed\", \"data\": \"\", \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"service-out\", \"message\" : \"Medical history export route completed\", \"data\": \"\", \"btxnid\": msg.bid, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 722.5,
         "y": 60,
@@ -319,7 +319,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"service-out\", \"message\" : \"Appointment export route completed\", \"data\": \"\", \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"service-out\", \"message\" : \"Appointment export route completed\", \"data\": \"\", \"btxnid\": msg.bid, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 722.5,
         "y": 200,
@@ -343,7 +343,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"service-out\", \"message\" : \"Invalid task id\", \"data\": $number( msg.payload. Records[0].body ), \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"service-out\", \"message\" : \"Invalid task id\", \"data\": $number( msg.payload. Records[0].body ), \"btxnid\": msg.bid, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 622.5,
         "y": 340,
@@ -386,7 +386,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string(  {\"type\":\"error\", \"message\" : \"Patient invoke failed\", \"data\": msg.error, \"txnid\" : msg._msgid } )",
+        "property": "$string(  {\"type\":\"error\", \"message\" : \"Patient invoke failed\", \"data\": msg.error,\"btxnid\": msg.bid,  \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 382.5,
         "y": 460,
@@ -445,7 +445,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"error\", \"message\" : \"Appointment invoke failed\", \"data\": msg.error, \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"error\", \"message\" : \"Appointment invoke failed\", \"data\": msg.error, \"btxnid\": msg.bid, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 382.5,
         "y": 560,
@@ -502,7 +502,7 @@
         "serviceType": "",
         "key": "env.datadogkey",
         "keyType": "",
-        "property": "$string( {\"type\":\"error\", \"message\" : \"Unknown failure\", \"data\": msg.error, \"txnid\" : msg._msgid } )",
+        "property": "$string( {\"type\":\"error\", \"message\" : \"Unknown failure\", \"data\": msg.error, \"btxnid\": msg.bid, \"txnid\" : msg._msgid } )",
         "propertyType": "",
         "x": 382.5,
         "y": 660,
@@ -529,5 +529,34 @@
         "wires": [],
         "caname": "eventlistenerend",
         "category": "general"
+    },
+    {
+        "id": "e69d24a7.4c45f8",
+        "type": "Set-Property",
+        "z": "main.flow",
+        "name": "Set Bussiness trace id",
+        "rules": [
+            {
+                "t": "set",
+                "p": "bid",
+                "pt": "camsg",
+                "to": "payload.bid",
+                "tot": "camsg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 222.5,
+        "y": 200,
+        "wires": [
+            [
+                "83a4fced.4e918"
+            ]
+        ],
+        "caname": "setproperty",
+        "category": "transformation"
     }
 ]
