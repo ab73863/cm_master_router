@@ -120,7 +120,7 @@
         "type": "JSON",
         "z": "main.flow",
         "name": "JSON",
-        "property": "msg.payload.Records[0].body",
+        "property": "msg.payload",
         "action": "obj",
         "pretty": true,
         "x": 162.5,
@@ -157,7 +157,7 @@
         "type": "Switch",
         "z": "main.flow",
         "name": "CheckTaskId",
-        "property": "$number( msg.payload.Records[0].body.taskid )",
+        "property": "$number( msg.payload.Records[0].body)",
         "propertyType": "",
         "rules": [
             {
