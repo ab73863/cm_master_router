@@ -540,14 +540,14 @@
                 "t": "set",
                 "p": "bid",
                 "pt": "camsg",
-                "to": "$eval(msg.payload.Records[0].body).bid",
+                "to": "$eval( msg.payload.Records[0].body ).bid",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
                 "p": "taskid",
                 "pt": "camsg",
-                "to": "$eval(msg.payload.Records[0].body).taskid",
+                "to": "$eval( msg.payload.Records[0].body ).taskid",
                 "tot": "jsonata"
             }
         ],
