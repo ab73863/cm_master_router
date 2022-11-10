@@ -121,8 +121,8 @@
         "z": "main.flow",
         "name": "JSON",
         "property": "msg.payload",
-        "action": "str",
-        "pretty": true,
+        "action": "obj",
+        "pretty": false,
         "x": 102.5,
         "y": 200,
         "wires": [
@@ -572,8 +572,8 @@
         "z": "main.flow",
         "name": "Logger",
         "level": "INFO",
-        "message": "$eval( msg.payload.Records[0].body ).bid",
-        "format": "string",
+        "message": "msg.payload.Records[0].body",
+        "format": "json",
         "headers": {},
         "x": 162.5,
         "y": 120,
@@ -603,5 +603,35 @@
         ],
         "caname": "logger",
         "category": "logging"
+    },
+    {
+        "id": "a1fe9a9.326db68",
+        "type": "TestCase",
+        "z": "test.flow",
+        "name": "TestCase",
+        "selectedTargetNode": "eacbb9ef.69d5c8",
+        "payload": "{\n    \"Records\": [\n        {\n            \"messageId\": \"e3576de4-2ea1-4c32-b813-e74a8071f1ae\",\n            \"receiptHandle\": \"AQEB2B9+2au3PIyrAeJ29OdCVBDCI4o8P4G/9CkGMxoL0t8QiSEwoR7GXwOoJRGjJxkisQBuLjvUJFZfq5zJu3CfOnPHOSM1i1tllsZRlqsYO3vozaA6OdwWGnCAYcnFNrhLGLird0z/v6xFQOHCU2cisxfRf5ZPq5k3hX1sCDpu76cSf1EMfIVhrTbB4SgQdKOXpLlIII8wOsiLsZ6nfVmQRHHx4w/keUK3BrCGn824u/dFUhR4KiUacFghxMuqLgpV/qd6lblft/lcNgiETKW4dD35udzTgJ2EzXlbSl12sviDrG2DVlI7B7zDof5b+x9cT1k7DUpxjfA4JzMM6o1mIzF0FUDXEXiGfUAotXfQXWMwcFBRHMDn1KjoiHgUDME6996ZIhtpEt/P3U26q9Q3qA==\",\n            \"body\": \"{\\\"taskid\\\": 2, \\\"bid\\\" : \\\"ab1234\\\", \\\"patient_name\\\": \\\"abc\\\", \\\"patient_recno\\\": \\\"123\\\", \\\"patient_age\\\": 29}\",\n            \"attributes\": {\n                \"ApproximateReceiveCount\": \"1\",\n                \"SentTimestamp\": \"1668045286823\",\n                \"SenderId\": \"AROASRNLS7S3CQQO37VZO:akumar\",\n                \"ApproximateFirstReceiveTimestamp\": \"1668045286830\"\n            },\n            \"messageAttributes\": {},\n            \"md5OfBody\": \"e4ee6f2a272fc3f388ad5af2516fa245\",\n            \"eventSource\": \"aws:sqs\",\n            \"eventSourceARN\": \"arn:aws:sqs:ap-southeast-2:174842903734:testqueue\",\n            \"awsRegion\": \"ap-southeast-2\"\n        }\n    ]\n}",
+        "initialLoad": "false",
+        "mocks": [],
+        "x": 102.5,
+        "y": 340,
+        "wires": [
+            [
+                "294cad7c.fb1792"
+            ]
+        ],
+        "caname": "test-case",
+        "category": "testing"
+    },
+    {
+        "id": "294cad7c.fb1792",
+        "type": "TestCaseEnd",
+        "z": "test.flow",
+        "name": "TestCaseEnd",
+        "x": 320,
+        "y": 340,
+        "wires": [],
+        "caname": "test-case-end",
+        "category": "testing"
     }
 ]
