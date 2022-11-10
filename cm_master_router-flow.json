@@ -121,7 +121,7 @@
         "z": "main.flow",
         "name": "JSON",
         "property": "msg.payload",
-        "action": "obj",
+        "action": "str",
         "pretty": true,
         "x": 102.5,
         "y": 200,
@@ -225,7 +225,7 @@
         "keyType": "",
         "property": "$string( {\"type\":\"service-in\", \"message\" : \"SQS event recieved\", \"data\": msg.payload, \"btxnid\": msg.bid,\"txnid\" : msg._msgid } )",
         "propertyType": "",
-        "x": 302.5,
+        "x": 282.5,
         "y": 200,
         "wires": [
             [
@@ -540,7 +540,7 @@
                 "t": "set",
                 "p": "bid",
                 "pt": "camsg",
-                "to": "payload.bid",
+                "to": "$eval(msg.payload.Records[0].body).bid",
                 "tot": "jsonata"
             },
             {
