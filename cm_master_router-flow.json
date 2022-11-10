@@ -28,6 +28,7 @@
         "bucketName": "",
         "event": "",
         "reference": "",
+        "queueName": "testqueue",
         "kapiUrl": "",
         "kcronexpression": "",
         "kreference": "",
@@ -123,11 +124,11 @@
         "property": "msg.payload",
         "action": "obj",
         "pretty": false,
-        "x": 102.5,
+        "x": 122.5,
         "y": 200,
         "wires": [
             [
-                "9b6ef9b0.4a07d8"
+                "e69d24a7.4c45f8"
             ]
         ],
         "caname": "JSON",
@@ -229,7 +230,7 @@
         "y": 200,
         "wires": [
             [
-                "b2a43a5e.e23968"
+                "31cedfc0.e66a2"
             ]
         ],
         "caname": "datadog",
@@ -565,44 +566,6 @@
         ],
         "caname": "setproperty",
         "category": "transformation"
-    },
-    {
-        "id": "9b6ef9b0.4a07d8",
-        "type": "Logger",
-        "z": "main.flow",
-        "name": "Logger",
-        "level": "INFO",
-        "message": "msg.payload.Records[0].body",
-        "format": "json",
-        "headers": {},
-        "x": 162.5,
-        "y": 120,
-        "wires": [
-            [
-                "e69d24a7.4c45f8"
-            ]
-        ],
-        "caname": "logger",
-        "category": "logging"
-    },
-    {
-        "id": "b2a43a5e.e23968",
-        "type": "Logger",
-        "z": "main.flow",
-        "name": "Logger",
-        "level": "INFO",
-        "message": "{\"bidt\": msg.bid}",
-        "format": "json",
-        "headers": {},
-        "x": 342.5,
-        "y": 120,
-        "wires": [
-            [
-                "31cedfc0.e66a2"
-            ]
-        ],
-        "caname": "logger",
-        "category": "logging"
     },
     {
         "id": "a1fe9a9.326db68",
