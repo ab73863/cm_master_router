@@ -33,7 +33,7 @@
         "kreference": "",
         "kObjectStoreName": "",
         "zapiUrl": "",
-        "x": 82.5,
+        "x": 42.5,
         "y": 200,
         "wires": [
             [
@@ -123,7 +123,7 @@
         "property": "msg.payload",
         "action": "obj",
         "pretty": true,
-        "x": 162.5,
+        "x": 102.5,
         "y": 200,
         "wires": [
             [
@@ -157,7 +157,7 @@
         "type": "Switch",
         "z": "main.flow",
         "name": "CheckTaskId",
-        "property": "$number( msg.payload.Records[0].body)",
+        "property": "$number( msg.taskid )",
         "propertyType": "",
         "rules": [
             {
@@ -534,14 +534,21 @@
         "id": "e69d24a7.4c45f8",
         "type": "Set-Property",
         "z": "main.flow",
-        "name": "Set Bussiness trace id",
+        "name": "Set Bussiness trace id and taskid",
         "rules": [
             {
                 "t": "set",
                 "p": "bid",
                 "pt": "camsg",
                 "to": "payload.bid",
-                "tot": "camsg"
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "taskid",
+                "pt": "camsg",
+                "to": "$eval(msg.payload.Records[0].body).taskid",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -549,7 +556,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 222.5,
+        "x": 182.5,
         "y": 200,
         "wires": [
             [
